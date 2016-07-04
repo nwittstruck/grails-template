@@ -8,7 +8,7 @@ dependencies:
 test:
   post:
     - cf login -a api.eu-gb.bluemix.net -u $BLUEMIX_USERNAME -p $BLUEMIX_PASSWORD
-    - sleep 5
+    - sleep 60
     - cf ic build -t grails-template:latest .
 
 deployment:
@@ -16,7 +16,7 @@ deployment:
     branch: master
     commands:
       - cf ic ip unbind grails-template
-      - sleep 5
+      - sleep 60
       - cf ic run --name grails-template registry.eu-gb.bluemix.net/edeka_certificate_server/grails-template:latest
-      - sleep 5
+      - sleep 60
       - cf ic ip bind 134.168.49.211 grails-template
