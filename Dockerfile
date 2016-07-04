@@ -10,5 +10,5 @@ RUN grails dependency-report
 
 # Set Default Behavior
 ENTRYPOINT ["grails"]
-CMD ["run"]
+CMD ["run -Dgrails.server.host=0.0.0.0"]
 
