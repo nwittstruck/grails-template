@@ -3,17 +3,20 @@ dependencies:
     - curl -v -L -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'
     - sudo dpkg -i cf-cli_amd64.deb
     - cf -v
+    - cf install-plugin https://static-ice.ng.bluemix.net/ibm-containers-linux_x64
 
 test:
   post:
-    - cf api https://api.ng.bluemix.net
-    - cf auth $BLUEMIX_USER $BLUEMIX_PASSWORD
-    - cf target -o $BLUEMIX_USER -s dev
-    - cf a
+    - cf login -a api.eu-gb.bluemix.net -u $BLUEMIX_USERNAME -p $BLUEMIX_PASSWORD
+    - sleep 5
+    - cf ic build -t grails-template:latest .
 
 deployment:
   production:
     branch: master
     commands:
-      - cf push
-
+      - cf ic ip unbind grails-template
+      - sleep 5
+      - cf ic run --name grails-template registry.eu-gb.bluemix.net/edeka_certificate_server/grails-template:latest
+      - sleep 5
+      - cf ic ip bind 134.168.49.211 grails-template
