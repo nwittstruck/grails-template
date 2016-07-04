@@ -4,11 +4,13 @@ dependencies:
     - sudo dpkg -i cf-cli_amd64.deb
     - cf -v
     - cf install-plugin -f https://static-ice.ng.bluemix.net/ibm-containers-linux_x64
+    - cf login -a api.eu-gb.bluemix.net -u $BLUEMIX_USERNAME -p $BLUEMIX_PASSWORD
+    - sleep 5
+    - cf ic init
+    - sleep 5
 
 test:
   post:
-    - cf login -a api.eu-gb.bluemix.net -u $BLUEMIX_USERNAME -p $BLUEMIX_PASSWORD
-    - sleep 60
     - cf ic build -t grails-template:latest .
 
 deployment:
@@ -16,7 +18,7 @@ deployment:
     branch: master
     commands:
       - cf ic ip unbind grails-template
-      - sleep 60
+      - sleep 5
       - cf ic run --name grails-template registry.eu-gb.bluemix.net/edeka_certificate_server/grails-template:latest
-      - sleep 60
-      - cf ic ip bind 134.168.49.211 grails-template
+      - sleep 5
+      - cf ic ip bind 134.168.48.224 grails-template
