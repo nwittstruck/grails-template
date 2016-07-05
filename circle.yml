@@ -18,7 +18,10 @@ deployment:
     branch: master
     commands:
       - cf ic ip unbind 134.168.48.224 grails-template
+      - cf ic stop grails-template
       - sleep 5
+      - cf ic rm grails-template
+      - cf ic sleep 30
       - cf ic run --name grails-template registry.eu-gb.bluemix.net/edeka_certificate_server/grails-template:latest
       - sleep 5
       - cf ic ip bind 134.168.48.224 grails-template

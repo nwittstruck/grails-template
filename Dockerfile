@@ -8,7 +8,10 @@ COPY . /app
 # create unnecessary build files or artifacts.
 RUN grails dependency-report
 
+EXPOSE 8080
+ENV CATALINA_OPTS "-Dgrails.server.host=0.0.0.0"
+
 # Set Default Behavior
 ENTRYPOINT ["grails"]
-CMD ["run -Dgrails.server.host=0.0.0.0"]
+CMD ["run"]
 
