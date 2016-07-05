@@ -22,6 +22,6 @@ deployment:
       - sleep 5
       - cf ic rm grails-template || true
       - sleep 30
-      - cf ic run --name grails-template registry.eu-gb.bluemix.net/edeka_certificate_server/grails-template:latest
+      - cf ic run -p 8080:8080 -e CATALINA_OPTS="-Dgrails.server.host=0.0.0.0" -e GRAILS_OPTS="-Dgrails.server.host=0.0.0.0" --name grails-template registry.eu-gb.bluemix.net/edeka_certificate_server/grails-template:latest
       - sleep 5
       - cf ic ip bind 134.168.48.224 grails-template
