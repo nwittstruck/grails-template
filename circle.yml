@@ -21,7 +21,7 @@ deployment:
       - cf ic stop grails-template  || true
       - sleep 5
       - cf ic rm grails-template || true
-      - cf ic sleep 30
+      - sleep 30
       - cf ic run --name grails-template registry.eu-gb.bluemix.net/edeka_certificate_server/grails-template:latest
       - sleep 5
       - cf ic ip bind 134.168.48.224 grails-template
